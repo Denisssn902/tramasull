@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: production  # <--- TROQUE PELO NOME DO SEU ENVIRONMENT NO GITHUB
+    environment: production
 
     steps:
       # 1. Baixa o código do repositório
@@ -28,7 +28,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/tramasul:latest
+          tags: dgoes/tramasul:latest
 
       # 4. Conecta na EC2 via SSH e atualiza o container
       - name: Deploy na AWS EC2 via SSH
@@ -38,8 +38,8 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/tramasul:latest
+            sudo docker pull dgoes/tramasul:latest
             sudo docker stop tramasul || true
             sudo docker rm tramasul || true
-            sudo docker run -d -p 80:80 --restart always --name tramasul ${{ secrets.DOCKER_USERNAME }}/tramasul:latest
+            sudo docker run -d -p 80:80 --restart always --name tramasul dgoes/tramasul:latest
             sudo docker image prune -f
