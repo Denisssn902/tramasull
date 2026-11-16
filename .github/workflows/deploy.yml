@@ -3,11 +3,12 @@ name: Build e Deploy TramaSul para EC2
 on:
   push:
     branches:
-      - main  # Dispara sempre que houver push na branch main (ou master)
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: production  # <--- TROQUE PELO NOME DO SEU ENVIRONMENT NO GITHUB
 
     steps:
       # 1. Baixa o código do repositório
