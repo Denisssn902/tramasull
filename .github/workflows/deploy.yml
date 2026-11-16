@@ -22,11 +22,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 3. Constrói e envia a nova imagem para o Docker Hub
+      # 3. Constrói e envia a nova imagem para o Docker Hub apontando para a subpasta
       - name: Build e Push para Docker Hub
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./case1_tramasul
           push: true
           tags: dgoes/tramasul:latest
 
